@@ -19,8 +19,21 @@
     <!-- Modal para abrir Gifs Salvos -->
     <sui-modal v-model="modalGifsSalvos">
       <sui-modal-header>
-        Meus Giphys
-        <sui-button basic floated="right" @click="openModalGifsSalvos" circular icon="close" />
+        <sui-grid divided="vertically">
+          <sui-grid-row :columns="3">
+            <sui-grid-column>Meus Giphys</sui-grid-column>
+            <sui-grid-column class="feedback">{{feedback}}</sui-grid-column>
+            <sui-grid-column>
+              <sui-button
+                basic
+                floated="right"
+                @click="actionModalGifsSalvos"
+                circular
+                icon="close"
+              />
+            </sui-grid-column>
+          </sui-grid-row>
+        </sui-grid>
       </sui-modal-header>
       <sui-modal-content scrolling image>
         <div class="widthCardsGroup">
@@ -66,14 +79,16 @@ export default {
   components: { Search, Preview, MyGiphys },
   data() {
     return {
+      feedback: "",
       modalGifsSalvos: false,
       arrayGifs: [],
       gifs: []
     };
   },
   methods: {
-    openModalGifsSalvos() {
+    actionModalGifsSalvos() {
       this.modalGifsSalvos = !this.modalGifsSalvos;
+      this.feedback = "";
     },
     openModelGifsSalvos() {
       this.modalGifsSalvos = !this.modalGifsSalvos;
@@ -86,6 +101,7 @@ export default {
     deletarGif(gif) {
       Gif.deletar(gif)
         .then(resposta => {
+          this.feedback = "Giphy Deletado";
           this.loadGifs();
         })
         .catch(e => {
@@ -95,6 +111,7 @@ export default {
     atualizarGif(gif) {
       Gif.atualizar(gif)
         .then(resposta => {
+          this.feedback = "Giphy Atualizado";
           this.loadGifs();
         })
         .catch(e => {
@@ -149,5 +166,10 @@ export default {
 
 #app .widthCardsGroup {
   max-width: 850px;
+}
+
+.feedback {
+  color: steelblue;
+  font-size: 0.75em;
 }
 </style>
