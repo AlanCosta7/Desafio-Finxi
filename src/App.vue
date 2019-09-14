@@ -17,21 +17,12 @@
     </sui-grid>
 
     <!-- Modal para abrir Gifs Salvos -->
-    <sui-modal v-model="modalGifsSalvos">
+    <sui-modal closeIcon v-model="modalGifsSalvos">
       <sui-modal-header>
         <sui-grid divided="vertically">
-          <sui-grid-row :columns="3">
+          <sui-grid-row :columns="5">
             <sui-grid-column>Meus Giphys</sui-grid-column>
             <sui-grid-column class="feedback">{{feedback}}</sui-grid-column>
-            <sui-grid-column>
-              <sui-button
-                basic
-                floated="right"
-                @click="actionModalGifsSalvos"
-                circular
-                icon="close"
-              />
-            </sui-grid-column>
           </sui-grid-row>
         </sui-grid>
       </sui-modal-header>
@@ -145,6 +136,7 @@ export default {
   background-repeat: no-repeat;
   background-position: center; /* Center the image */
   background-size: cover;
+  background-color: black;
   height: 100%;
   padding: 40px;
 }

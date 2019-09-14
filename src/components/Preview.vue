@@ -12,8 +12,8 @@
         @dismiss="handleDismiss"
       />
     </transition>
-    <div class="ui stackable five column grid">
-      <div class="column" v-for="gif in gifs" :key="gif.id">
+    <div class="ui stackable five column grid scrollbar">
+      <div class="column" v-for="gif in gifs" :key="gif.id" >
         <sui-card @click="showModal(gif)">
           <sui-image class="img" :src="gif.images.fixed_height.url" alt="imagem gif" />
         </sui-card>
@@ -21,7 +21,7 @@
     </div>
 
     <!-- Modal detalhes Giphy -->
-    <sui-modal v-model="modalDetalhesGifs">
+    <sui-modal closeIcon v-model="modalDetalhesGifs">
       <sui-modal-header>
         <div class="ui column grid">
           <div class="row" v-if="editedItem.user">
@@ -62,7 +62,6 @@
         </sui-modal-description>
       </sui-modal-content>
       <sui-modal-actions>
-        <sui-button @click.native="actionModalDetalhesGifs()" icon="close">CANCELAR</sui-button>
         <sui-button positive @click.native="atacarLord(editedItem)" icon="check">SALVAR</sui-button>
       </sui-modal-actions>
     </sui-modal>
@@ -163,5 +162,6 @@ export default {
 #preview .scrollbar {
   overflow: auto;
   overflow-y: scroll;
+  height: 550px;
 }
 </style>
