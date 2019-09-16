@@ -21,7 +21,7 @@
     </div>
 
     <!-- Modal detalhes Gif -->
-    <sui-modal size="mini" closeIcon v-model="openDetalhesGif">
+    <sui-modal size="mini" closeIcon v-model="abrirDetalhesGif">
       <sui-modal-header>
             <sui-card class="marginCardGifs" v-if="editedItem">
               <sui-card-content>
@@ -50,7 +50,7 @@ export default {
   name: "my-giphy",
   data() {
     return {
-      openDetalhesGif: false,
+      abrirDetalhesGif: false,
       editedIndex: -1,
       editedItem: "",
       gifs: [],
@@ -65,7 +65,7 @@ export default {
     detalhesGif(item) {
       this.editedIndex = this.gifs.indexOf(item);
       this.editedItem = Object.assign({}, item);
-      this.openDetalhesGif = true
+      this.abrirDetalhesGif = true
     }
   }
 };

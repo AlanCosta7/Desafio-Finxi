@@ -60,7 +60,7 @@
         </sui-modal-description>
       </sui-modal-content>
       <sui-modal-actions>
-        <sui-button positive @click.native="atacarLord(editedItem)" icon="check">SALVAR</sui-button>
+        <sui-button positive @click.native="salvarGif(editedItem)" icon="check">SALVAR</sui-button>
       </sui-modal-actions>
     </sui-modal>
   </div>
@@ -103,7 +103,22 @@ export default {
     actionModalDetalhesGifs() {
       this.modalDetalhesGifs = !this.modalDetalhesGifs;
     },
-    atacarLord(gif) {
+    salvarGif(editedItem) {
+      const gif = {
+        title: editedItem.title ? editedItem.title : "Sem título",
+        name: editedItem.user ? editedItem.user.display_name : "Sem nome",
+        avatar: editedItem.user
+          ? editedItem.user.avatar_url
+          : this.profile_null,
+        image: editedItem.images.fixed_height.url
+          ? editedItem.images.fixed_height.url
+          : this.profile_null,
+        profile: editedItem.user
+          ? editedItem.user.profile_url
+          : this.profile_null,
+        link: editedItem.bitly_url ? editedItem.bitly_url : "Sem link"
+      };
+
       this.actionModalDetalhesGifs();
       Gif.salvar(gif)
         .then(resposta => {

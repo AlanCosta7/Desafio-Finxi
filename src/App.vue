@@ -3,7 +3,7 @@
     <sui-grid :columns="2">
       <sui-grid-row>
         <sui-grid-column :width="4">
-          <my-giphys :arrayGifs="arrayGifs" @load="loadGifs" @open="openModelGifsSalvos()"></my-giphys>
+          <my-giphys :arrayGifs="arrayGifs" @load="loadGifs" @open="abrirModelGifsSalvos()"></my-giphys>
         </sui-grid-column>
         <sui-grid-column :width="12">
           <div class="buscador">
@@ -33,7 +33,7 @@
               <div v-if="gif">
               <sui-card-content class="padding10">
                 <sui-image :src="gif.avatar" avatar />
-                <a :href="gif.profile" target="_blank">{{gif.name}}</a>
+                  <sui-input v-model="gif.name" />
               </sui-card-content>
               <a :href="gif.link" target="_blank">
                 <sui-image class="imagemGif" :src="gif.image" />
@@ -84,7 +84,7 @@ export default {
       this.modalGifsSalvos = !this.modalGifsSalvos;
       this.feedback = "";
     },
-    openModelGifsSalvos() {
+    abrirModelGifsSalvos() {
       this.modalGifsSalvos = !this.modalGifsSalvos;
     },
     loadGifs() {
@@ -136,7 +136,7 @@ export default {
   padding: 40px;
 }
 
-.padding10{
+#app .padding10{
   padding: 10px
 }
 
@@ -159,7 +159,7 @@ export default {
   max-width: 850px;
 }
 
-.feedback {
+#app .feedback {
   color: steelblue;
   font-size: 0.75em;
 }
