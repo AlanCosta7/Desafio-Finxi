@@ -1,6 +1,11 @@
-# giphyapi
+# mygiphys
 
-> MVP
+> MVP 
+
+Website utilizando o Semantic UI e Vue JS e API pública de desenvolvedores do Giphy para:
+● Listar gifs através de uma busca
+● Visualizar os detalhes de um gif
+● Editar, atualizar e deletar gifs salvos
 
 ## Build Setup
 
