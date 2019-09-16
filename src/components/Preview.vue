@@ -3,9 +3,7 @@
     <transition name="fade">
       <sui-message
         v-if="visible"
-        :color="color"
-        success="success?true:false"
-        negative="negative?true:false"
+        success
         :header="header"
         :content="content"
         dismissable
@@ -14,7 +12,7 @@
     </transition>
     <div class="ui stackable five column grid scrollbar">
       <div class="column" v-for="gif in gifs" :key="gif.id" >
-        <sui-card @click="showModal(gif)">
+        <sui-card v-if="gif" @click="showModal(gif)">
           <sui-image class="img" :src="gif.images.fixed_height.url" alt="imagem gif" />
         </sui-card>
       </div>
@@ -71,6 +69,7 @@
 <script>
 import dayjs from "dayjs";
 import Gif from "../services/gifs";
+import Giphy from "../services/giphy";
 
 export default {
   name: "preview",
@@ -82,7 +81,6 @@ export default {
       content: "",
       color: "",
       modalDetalhesGifs: false,
-      editedIndex: -1,
       editedItem: "",
       uploadItem: ""
     };
@@ -94,37 +92,23 @@ export default {
       this.actionModalDetalhesGifs();
     },
     selectGif(item) {
-      this.editedIndex = this.gifs.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.uploadItem = dayjs(this.editedItem.import_datetime).format(
-        "DD/MM/YYYY"
-      );
+      var id = item.id
+      Giphy.getId(id).then(res => {
+        this.editedItem = res.data.data
+        this.uploadItem = dayjs(this.editedItem.import_datetime).format(
+         "DD/MM/YYYY"
+        );
+      })
     },
     actionModalDetalhesGifs() {
       this.modalDetalhesGifs = !this.modalDetalhesGifs;
     },
-    atacarLord(editedItem) {
-      const gif = {
-        title: editedItem.title ? editedItem.title : "Sem título",
-        name: editedItem.user ? editedItem.user.display_name : "Sem nome",
-        avatar: editedItem.user
-          ? editedItem.user.avatar_url
-          : this.profile_null,
-        image: editedItem.images.fixed_height.url
-          ? editedItem.images.fixed_height.url
-          : this.profile_null,
-        profile: editedItem.user
-          ? editedItem.user.profile_url
-          : this.profile_null,
-        link: editedItem.bitly_url ? editedItem.bitly_url : "Sem link"
-      };
-
+    atacarLord(gif) {
       this.actionModalDetalhesGifs();
       Gif.salvar(gif)
         .then(resposta => {
           this.header = "Parabéns!";
           this.content = "Giphy salvo com sucesso";
-          this.color = "positive";
           this.handleDismiss();
           this.$emit("load");
           this.visible = true;
@@ -132,7 +116,6 @@ export default {
         .catch(e => {
           this.header = "Ho-ho!!!";
           this.content = "Não foi possível salvar Giphy";
-          this.color = "negative";
           console.log(e);
         });
     },

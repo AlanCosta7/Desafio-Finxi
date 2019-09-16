@@ -5,7 +5,7 @@
         <sui-segment inverted class="column scrollbar">
           <sui-button positive @click.native="abrirGifsSalvos()" content="Editar Giphys" fluid />
           <sui-list v-for="gif in arrayGifs" :key="gif.id" divided inverted relaxed>
-            <sui-list-item @click.native="detalhesGif(gif)" class="cursorPointer">
+            <sui-list-item v-if="gif" @click.native="detalhesGif(gif)" class="cursorPointer">
               <sui-image avatar :src="gif.image" />
               <sui-list-content vertical-align="middle">
                 <p is="sui-list-header">{{gif.name.substring(0, 20)}}</p>
@@ -23,7 +23,7 @@
     <!-- Modal detalhes Gif -->
     <sui-modal size="mini" closeIcon v-model="openDetalhesGif">
       <sui-modal-header>
-            <sui-card class="marginCardGifs">
+            <sui-card class="marginCardGifs" v-if="editedItem">
               <sui-card-content>
                 <sui-image :src="editedItem.avatar" avatar />
                 <a :href="editedItem.profile" target="_blank">{{editedItem.name}}</a>

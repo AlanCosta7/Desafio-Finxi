@@ -20,8 +20,8 @@
     <sui-modal closeIcon v-model="modalGifsSalvos">
       <sui-modal-header>
         <sui-grid divided="vertically">
-          <sui-grid-row :columns="5">
-            <sui-grid-column>Meus Giphys</sui-grid-column>
+          <sui-grid-row :columns="2">
+            <sui-grid-column>Editar Giphys</sui-grid-column>
             <sui-grid-column class="feedback">{{feedback}}</sui-grid-column>
           </sui-grid-row>
         </sui-grid>
@@ -30,20 +30,21 @@
         <div class="widthCardsGroup">
           <sui-card-group :items-per-row="3">
             <sui-card v-for="gif in arrayGifs" :key="gif.id" class="marginCardGifs">
-              <sui-card-content>
+              <div v-if="gif">
+              <sui-card-content class="padding10">
                 <sui-image :src="gif.avatar" avatar />
                 <a :href="gif.profile" target="_blank">{{gif.name}}</a>
               </sui-card-content>
               <a :href="gif.link" target="_blank">
                 <sui-image class="imagemGif" :src="gif.image" />
               </a>
-              <sui-card-content>
+              <sui-card-content class="padding10">
                 <sui-card-header>
                   Título:
                   <sui-input v-model="gif.title" />
                 </sui-card-header>
               </sui-card-content>
-              <sui-card-content extra>
+              <sui-card-content extra class="padding10">
                 <sui-container text-align="center">
                   <sui-button-group>
                     <sui-button @click="atualizarGif(gif)" positive>Atualizar</sui-button>
@@ -51,6 +52,7 @@
                   </sui-button-group>
                 </sui-container>
               </sui-card-content>
+              </div>
             </sui-card>
           </sui-card-group>
         </div>
@@ -64,6 +66,7 @@ import Search from "./components/Search";
 import Preview from "./components/Preview";
 import MyGiphys from "./components/MyGiphys";
 import Gif from "./services/gifs";
+import Giphy from "./services/giphy"
 
 export default {
   name: "app",
@@ -109,25 +112,17 @@ export default {
           console.log(e);
         });
     },
-    doQuery(url) {
-      fetch(url)
-        .then(res => {
-          return res.json();
-        })
-        .then(res => {
-          this.gifs = res.data;
-        });
-    },
     handleSearch(query) {
       this.gifs = [];
-      const url = `http://api.giphy.com/v1/gifs/search?q=${query}&api_key=LM9cU9ZVtjMgkhL3nc73jZnStzD55yCJ`;
-      this.doQuery(url);
+      Giphy.listar(query).then(res => {
+            this.gifs = res.data.data
+      })
     }
   },
   mounted() {
-    this.loadGifs();
+    this.loadGifs()
   }
-};
+}
 </script>
 
 <style>
@@ -139,6 +134,10 @@ export default {
   background-color: black;
   height: 100%;
   padding: 40px;
+}
+
+.padding10{
+  padding: 10px
 }
 
 #app .buscador {
