@@ -2,19 +2,19 @@ import { http } from './config'
 
 export default {
 
-    listar:() => {
-        return http.get('gifs')
-    },
+  listar:() => {
+    return http.get('/gifs')
+  },
 
-    salvar:(gif) => {
-        return http.post('gif', gif)
-    },
+  criar:(gif) => {
+    return http.post('/gifs', gif)
+  },
 
-    deletar:(gif) => {
-        return http.delete('gif', { data: gif })
-    },
+  atualizar:(gif) => {
+    return http.put(`/gifs/${gif.id}`, gif)
+  },
 
-    atualizar:(gif) => {
-        return http.put('gif', gif)
-    }
+  deletar:(gif) => {
+    return http.delete(`/gifs/${gif.id}`)
+  }
 }

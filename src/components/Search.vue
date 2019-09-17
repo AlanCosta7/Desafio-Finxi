@@ -1,16 +1,15 @@
 <template>
-  <div id="search" class="ui right aligned category search">
-    <div class="results" />
+  <form id="search" name="search" class="ui right aligned category search" @submit.prevent="handleSearch">
     <div class="ui search container">
       <div class="ui fluid action left icon input">
-        <i class="search icon" />
-        <input v-model="query" type="text" class="prompt" @keypress.enter="handleSearch">
-        <button class="ui teal button" @click="handleSearch">
+        <i class="search icon" alt="icone de lupa (buscar)" />
+        <input v-model="query" type="text" class="prompt">
+        <button type="submit" class="ui teal button">
           Buscar
         </button>
       </div>
     </div>
-  </div>
+  </form>
 </template>
 
 <script>
@@ -33,5 +32,9 @@ export default {
 #search .button {
   border-bottom-right-radius: 50px 50px;
   border-top-right-radius: 50px 50px;
+}
+
+#search .input:hover {
+  background: inherit;
 }
 </style>

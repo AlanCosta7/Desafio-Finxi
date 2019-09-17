@@ -28,9 +28,9 @@
         <sui-card v-if="editedItem" class="marginCardGifs">
           <sui-card-content>
             <sui-image :src="editedItem.avatar" avatar />
-            <a :href="editedItem.profile" target="_blank">{{ editedItem.name }}</a>
+            <a :href="editedItem.profile" target="_blank" rel="noopener">{{ editedItem.name }}</a>
           </sui-card-content>
-          <a :href="editedItem.link" target="_blank">
+          <a :href="editedItem.link" target="_blank" rel="noopener">
             <sui-image class="imagemGif" :src="editedItem.image" />
           </a>
           <sui-card-content>
