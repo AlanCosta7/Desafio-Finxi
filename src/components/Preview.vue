@@ -29,7 +29,7 @@
               avatar
               alt="imagem avatar"
             />
-            <a class="displayName" :href="editedItem.user.profile_url" target="_blank">
+            <a class="displayName" :href="editedItem.user.profile_url" target="_blank" rel="noopener">
               <p>{{ editedItem.user.display_name }}</p>
             </a>
           </div>
@@ -46,7 +46,7 @@
         <sui-modal-description>
           <sui-header>
             Título:
-            <a :href="editedItem.bitly_url" target="_blank">{{ editedItem.title }}</a>
+            <a :href="editedItem.bitly_url" target="_blank" rel="noopener">{{ editedItem.title }}</a>
           </sui-header>
           <br>
           <sui-grid divided="vertically">
@@ -65,7 +65,7 @@
         </sui-modal-description>
       </sui-modal-content>
       <sui-modal-actions>
-        <sui-button positive icon="check" @click.native="salvarGif(editedItem)">
+        <sui-button positive icon="check" @click.native="criarGif(editedItem)">
           SALVAR
         </sui-button>
       </sui-modal-actions>
@@ -115,7 +115,7 @@ export default {
     actionModalDetalhesGifs() {
       this.modalDetalhesGifs = !this.modalDetalhesGifs;
     },
-    salvarGif(editedItem) {
+    criarGif(editedItem) {
       const gif = {
         title: editedItem.title ? editedItem.title : "Sem título",
         name: editedItem.user ? editedItem.user.display_name : "Sem nome",
@@ -132,17 +132,17 @@ export default {
       };
 
       this.actionModalDetalhesGifs();
-      Gif.salvar(gif)
+      Gif.criar(gif)
         .then(resposta => {
           this.header = "Parabéns!";
-          this.content = "Giphy salvo com sucesso";
+          this.content = "Giphy criado com sucesso";
           this.handleDismiss();
           this.$emit("load");
           this.visible = true;
         })
         .catch(e => {
           this.header = "Ho-ho!!!";
-          this.content = "Não foi possível salvar Giphy";
+          this.content = "Não foi possível criar o Giphy";
           console.log(e);
         });
     },
