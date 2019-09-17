@@ -1,17 +1,13 @@
 <template>
-  <div id="app">
+  <div class="page-app bg-gif">
     <sui-grid :columns="2">
       <sui-grid-row>
         <sui-grid-column :width="4">
           <my-giphys :array-gifs="arrayGifs" @load="loadGifs" @open="abrirModelGifsSalvos()" />
         </sui-grid-column>
         <sui-grid-column :width="12">
-          <div class="buscador">
-            <search @SearchRequested="handleSearch" />
-          </div>
-          <div>
-            <preview :gifs="gifs" @load="loadGifs" />
-          </div>
+          <search class="buscador" @SearchRequested="handleSearch" />
+          <preview :gifs="gifs" @load="loadGifs" />
         </sui-grid-column>
       </sui-grid-row>
     </sui-grid>
@@ -31,22 +27,22 @@
       <sui-modal-content scrolling image>
         <div class="widthCardsGroup">
           <sui-card-group :items-per-row="3">
-            <sui-card v-for="gif in arrayGifs" :key="gif.id" class="marginCardGifs">
-              <div v-if="gif">
-                <sui-card-content class="padding10">
-                  <sui-image :src="gif.avatar" avatar />
+            <sui-card v-for="gif in arrayGifs" :key="gif.id">
+              <template v-if="gif">
+                <sui-card-content>
+                  <sui-image :src="gif.avatar" avatar class="float left" />
                   <sui-input v-model="gif.name" />
                 </sui-card-content>
-                <a :href="gif.link" target="_blank">
-                  <sui-image class="imagemGif" :src="gif.image" />
+                <a class="ui image" :href="gif.link" target="_blank" rel="noopener">
+                  <sui-image :src="gif.image" />
                 </a>
-                <sui-card-content class="padding10">
+                <sui-card-content>
                   <sui-card-header>
                     Título:
                     <sui-input v-model="gif.title" />
                   </sui-card-header>
                 </sui-card-content>
-                <sui-card-content extra class="padding10">
+                <sui-card-content extra>
                   <sui-container text-align="center">
                     <sui-button-group>
                       <sui-button positive @click="atualizarGif(gif)">
@@ -58,7 +54,7 @@
                     </sui-button-group>
                   </sui-container>
                 </sui-card-content>
-              </div>
+              </template>
             </sui-card>
           </sui-card-group>
         </div>
@@ -132,40 +128,28 @@ export default {
 </script>
 
 <style>
-#app {
-  background-image: url("https://media.giphy.com/media/yI3rO1XBSf0He/giphy.gif");
-  background-repeat: no-repeat;
-  background-position: center; /* Center the image */
-  background-size: cover;
-  background-color: black;
+.page-app {
   height: 100%;
   padding: 40px;
 }
 
-#app .padding10 {
-  padding: 10px;
+.bg-gif {
+  background-image: url("https://media.giphy.com/media/yI3rO1XBSf0He/giphy.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: black;
 }
 
-#app .buscador {
+.page-app .buscador {
   padding: 30px;
 }
 
-#app .imagemGif {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-#app .marginCardGifs {
-  margin-right: 10px;
-  margin-bottom: 10px;
-}
-
-#app .widthCardsGroup {
+.page-app .widthCardsGroup {
   max-width: 850px;
 }
 
-#app .feedback {
+.page-app .feedback {
   color: steelblue;
   font-size: 0.75em;
 }
