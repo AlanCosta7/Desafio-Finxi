@@ -11,7 +11,7 @@
       />
     </transition>
     <div class="ui stackable five column grid scrollbar">
-      <div class="column" v-for="gif in gifs" :key="gif.id">
+      <div v-for="gif in gifs" :key="gif.id" class="column">
         <sui-card v-if="gif" @click="showModal(gif)">
           <sui-image class="img" :src="gif.images.fixed_height.url" alt="imagem gif" />
         </sui-card>
@@ -19,10 +19,10 @@
     </div>
 
     <!-- Modal detalhes Giphy -->
-    <sui-modal closeIcon v-model="modalDetalhesGifs">
+    <sui-modal v-model="modalDetalhesGifs" close-icon>
       <sui-modal-header>
         <div class="ui column grid">
-          <div class="row" v-if="editedItem.user">
+          <div v-if="editedItem.user" class="row">
             <sui-image
               v-if="editedItem.user"
               :src="editedItem.user.avatar_url"
@@ -30,42 +30,44 @@
               alt="imagem avatar"
             />
             <a class="displayName" :href="editedItem.user.profile_url" target="_blank">
-              <p>{{editedItem.user.display_name}}</p>
+              <p>{{ editedItem.user.display_name }}</p>
             </a>
           </div>
         </div>
       </sui-modal-header>
       <sui-modal-content image>
         <sui-image
+          v-if="editedItem"
           wrapped
           size="medium"
-          v-if="editedItem"
           :src="editedItem.images?editedItem.images.fixed_height.url:profile"
           alt="imagem gif selecionada"
         />
         <sui-modal-description>
           <sui-header>
             Título:
-            <a :href="editedItem.bitly_url" target="_blank">{{editedItem.title}}</a>
+            <a :href="editedItem.bitly_url" target="_blank">{{ editedItem.title }}</a>
           </sui-header>
-          <br />
+          <br>
           <sui-grid divided="vertically">
-            <sui-grid-row :columns="2" v-if="editedItem.images">
+            <sui-grid-row v-if="editedItem.images" :columns="2">
               <sui-grid-column>
-                <p>Frames: {{editedItem.images.original.frames}}</p>
-                <p>Dimensão: {{editedItem.images.original.width}}x{{editedItem.images.original.height}}px</p>
-                <p>Tamanho: {{(editedItem.images.original.size/1000000).toFixed(2)}} MB</p>
+                <p>Frames: {{ editedItem.images.original.frames }}</p>
+                <p>Dimensão: {{ editedItem.images.original.width }}x{{ editedItem.images.original.height }}px</p>
+                <p>Tamanho: {{ (editedItem.images.original.size/1000000).toFixed(2) }} MB</p>
               </sui-grid-column>
               <sui-grid-column>
-                <p>Upload: {{uploadItem}}</p>
-                <p>Rating: {{editedItem.rating}}</p>
+                <p>Upload: {{ uploadItem }}</p>
+                <p>Rating: {{ editedItem.rating }}</p>
               </sui-grid-column>
             </sui-grid-row>
           </sui-grid>
         </sui-modal-description>
       </sui-modal-content>
       <sui-modal-actions>
-        <sui-button positive @click.native="salvarGif(editedItem)" icon="check">SALVAR</sui-button>
+        <sui-button positive icon="check" @click.native="salvarGif(editedItem)">
+          SALVAR
+        </sui-button>
       </sui-modal-actions>
     </sui-modal>
   </div>
@@ -77,7 +79,13 @@ import Gif from "../services/gifs";
 import Giphy from "../services/giphy";
 
 export default {
-  name: "preview",
+  name: "Preview",
+  props: {
+    gifs: {
+      type: Array,
+      default:  function () { return [] }
+    }
+  },
   data() {
     return {
       profile_null: "https://img.ibxk.com.br/2017/06/22/22100428046161.jpg",
@@ -90,7 +98,6 @@ export default {
       uploadItem: ""
     };
   },
-  props: ["gifs"],
   methods: {
     showModal(item) {
       this.selectGif(item);

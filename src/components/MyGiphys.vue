@@ -3,14 +3,16 @@
     <div>
       <div class="ui stackable container column grid">
         <sui-segment inverted class="column scrollbar">
-          <sui-button positive @click.native="abrirGifsSalvos()" content="Editar Giphys" fluid />
+          <sui-button positive content="Editar Giphys" fluid @click.native="abrirGifsSalvos()" />
           <sui-list v-for="gif in arrayGifs" :key="gif.id" divided inverted relaxed>
-            <sui-list-item v-if="gif" @click.native="detalhesGif(gif)" class="cursorPointer">
+            <sui-list-item v-if="gif" class="cursorPointer" @click.native="detalhesGif(gif)">
               <sui-image avatar :src="gif.image" />
               <sui-list-content vertical-align="middle">
-                <p is="sui-list-header">{{gif.name.substring(0, 20)}}</p>
+                <p is="sui-list-header">
+                  {{ gif.name.substring(0, 20) }}
+                </p>
                 <sui-list-description>
-                  <b>{{gif.title.substring(0, 20)}}</b>
+                  <b>{{ gif.title.substring(0, 20) }}</b>
                 </sui-list-description>
               </sui-list-content>
             </sui-list-item>
@@ -21,12 +23,12 @@
     </div>
 
     <!-- Modal detalhes Gif -->
-    <sui-modal size="mini" closeIcon v-model="abrirDetalhesGif">
+    <sui-modal v-model="abrirDetalhesGif" size="mini" close-icon>
       <sui-modal-header>
-        <sui-card class="marginCardGifs" v-if="editedItem">
+        <sui-card v-if="editedItem" class="marginCardGifs">
           <sui-card-content>
             <sui-image :src="editedItem.avatar" avatar />
-            <a :href="editedItem.profile" target="_blank">{{editedItem.name}}</a>
+            <a :href="editedItem.profile" target="_blank">{{ editedItem.name }}</a>
           </sui-card-content>
           <a :href="editedItem.link" target="_blank">
             <sui-image class="imagemGif" :src="editedItem.image" />
@@ -34,7 +36,7 @@
           <sui-card-content>
             <sui-card-header>
               Título:
-              <h5>{{editedItem.title}}</h5>
+              <h5>{{ editedItem.title }}</h5>
             </sui-card-header>
           </sui-card-content>
         </sui-card>
@@ -47,7 +49,13 @@
 import Gif from "../services/gifs";
 
 export default {
-  name: "my-giphy",
+  name: "MyGiphy",
+  props: {
+    arrayGifs: {
+      type: Array,
+      default:  function () { return [] }
+    },
+  },
   data() {
     return {
       abrirDetalhesGif: false,
@@ -57,7 +65,6 @@ export default {
       errors: []
     };
   },
-  props: ["arrayGifs"],
   methods: {
     abrirGifsSalvos() {
       this.$emit("open");

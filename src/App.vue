@@ -3,26 +3,28 @@
     <sui-grid :columns="2">
       <sui-grid-row>
         <sui-grid-column :width="4">
-          <my-giphys :arrayGifs="arrayGifs" @load="loadGifs" @open="abrirModelGifsSalvos()"></my-giphys>
+          <my-giphys :array-gifs="arrayGifs" @load="loadGifs" @open="abrirModelGifsSalvos()" />
         </sui-grid-column>
         <sui-grid-column :width="12">
           <div class="buscador">
-            <search v-on:SearchRequested="handleSearch"></search>
+            <search @SearchRequested="handleSearch" />
           </div>
           <div>
-            <preview :gifs="gifs" @load="loadGifs"></preview>
+            <preview :gifs="gifs" @load="loadGifs" />
           </div>
         </sui-grid-column>
       </sui-grid-row>
     </sui-grid>
 
     <!-- Modal para abrir Gifs Salvos -->
-    <sui-modal closeIcon v-model="modalGifsSalvos">
+    <sui-modal v-model="modalGifsSalvos" close-icon>
       <sui-modal-header>
         <sui-grid divided="vertically">
           <sui-grid-row :columns="2">
             <sui-grid-column>Editar Giphys</sui-grid-column>
-            <sui-grid-column class="feedback">{{feedback}}</sui-grid-column>
+            <sui-grid-column class="feedback">
+              {{ feedback }}
+            </sui-grid-column>
           </sui-grid-row>
         </sui-grid>
       </sui-modal-header>
@@ -47,8 +49,12 @@
                 <sui-card-content extra class="padding10">
                   <sui-container text-align="center">
                     <sui-button-group>
-                      <sui-button @click="atualizarGif(gif)" positive>Atualizar</sui-button>
-                      <sui-button @click="deletarGif(gif)" negative>Apagar</sui-button>
+                      <sui-button positive @click="atualizarGif(gif)">
+                        Atualizar
+                      </sui-button>
+                      <sui-button negative @click="deletarGif(gif)">
+                        Apagar
+                      </sui-button>
                     </sui-button-group>
                   </sui-container>
                 </sui-card-content>
@@ -69,7 +75,7 @@ import Gif from "./services/gifs";
 import Giphy from "./services/giphy"
 
 export default {
-  name: "app",
+  name: "App",
   components: { Search, Preview, MyGiphys },
   data() {
     return {
@@ -78,6 +84,9 @@ export default {
       arrayGifs: [],
       gifs: []
     };
+  },
+  mounted() {
+    this.loadGifs();
   },
   methods: {
     actionModalGifsSalvos() {
@@ -118,9 +127,6 @@ export default {
         this.gifs = res.data.data;
       });
     }
-  },
-  mounted() {
-    this.loadGifs();
   }
 };
 </script>
