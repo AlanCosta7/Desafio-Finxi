@@ -23,21 +23,21 @@
     <!-- Modal detalhes Gif -->
     <sui-modal size="mini" closeIcon v-model="abrirDetalhesGif">
       <sui-modal-header>
-            <sui-card class="marginCardGifs" v-if="editedItem">
-              <sui-card-content>
-                <sui-image :src="editedItem.avatar" avatar />
-                <a :href="editedItem.profile" target="_blank">{{editedItem.name}}</a>
-              </sui-card-content>
-              <a :href="editedItem.link" target="_blank">
-                <sui-image class="imagemGif" :src="editedItem.image" />
-              </a>
-              <sui-card-content>
-                <sui-card-header>
-                  Título:
-                  <h5>{{editedItem.title}}</h5>
-                </sui-card-header>
-              </sui-card-content>
-            </sui-card>
+        <sui-card class="marginCardGifs" v-if="editedItem">
+          <sui-card-content>
+            <sui-image :src="editedItem.avatar" avatar />
+            <a :href="editedItem.profile" target="_blank">{{editedItem.name}}</a>
+          </sui-card-content>
+          <a :href="editedItem.link" target="_blank">
+            <sui-image class="imagemGif" :src="editedItem.image" />
+          </a>
+          <sui-card-content>
+            <sui-card-header>
+              Título:
+              <h5>{{editedItem.title}}</h5>
+            </sui-card-header>
+          </sui-card-content>
+        </sui-card>
       </sui-modal-header>
     </sui-modal>
   </div>
@@ -65,7 +65,7 @@ export default {
     detalhesGif(item) {
       this.editedIndex = this.gifs.indexOf(item);
       this.editedItem = Object.assign({}, item);
-      this.abrirDetalhesGif = true
+      this.abrirDetalhesGif = true;
     }
   }
 };
@@ -93,6 +93,6 @@ export default {
 }
 
 #myGiphys .cursorPointer {
-    cursor: pointer;
+  cursor: pointer;
 }
 </style>

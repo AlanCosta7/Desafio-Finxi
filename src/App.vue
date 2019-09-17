@@ -31,27 +31,27 @@
           <sui-card-group :items-per-row="3">
             <sui-card v-for="gif in arrayGifs" :key="gif.id" class="marginCardGifs">
               <div v-if="gif">
-              <sui-card-content class="padding10">
-                <sui-image :src="gif.avatar" avatar />
+                <sui-card-content class="padding10">
+                  <sui-image :src="gif.avatar" avatar />
                   <sui-input v-model="gif.name" />
-              </sui-card-content>
-              <a :href="gif.link" target="_blank">
-                <sui-image class="imagemGif" :src="gif.image" />
-              </a>
-              <sui-card-content class="padding10">
-                <sui-card-header>
-                  Título:
-                  <sui-input v-model="gif.title" />
-                </sui-card-header>
-              </sui-card-content>
-              <sui-card-content extra class="padding10">
-                <sui-container text-align="center">
-                  <sui-button-group>
-                    <sui-button @click="atualizarGif(gif)" positive>Atualizar</sui-button>
-                    <sui-button @click="deletarGif(gif)" negative>Apagar</sui-button>
-                  </sui-button-group>
-                </sui-container>
-              </sui-card-content>
+                </sui-card-content>
+                <a :href="gif.link" target="_blank">
+                  <sui-image class="imagemGif" :src="gif.image" />
+                </a>
+                <sui-card-content class="padding10">
+                  <sui-card-header>
+                    Título:
+                    <sui-input v-model="gif.title" />
+                  </sui-card-header>
+                </sui-card-content>
+                <sui-card-content extra class="padding10">
+                  <sui-container text-align="center">
+                    <sui-button-group>
+                      <sui-button @click="atualizarGif(gif)" positive>Atualizar</sui-button>
+                      <sui-button @click="deletarGif(gif)" negative>Apagar</sui-button>
+                    </sui-button-group>
+                  </sui-container>
+                </sui-card-content>
               </div>
             </sui-card>
           </sui-card-group>
@@ -115,14 +115,14 @@ export default {
     handleSearch(query) {
       this.gifs = [];
       Giphy.listar(query).then(res => {
-            this.gifs = res.data.data
-      })
+        this.gifs = res.data.data;
+      });
     }
   },
   mounted() {
-    this.loadGifs()
+    this.loadGifs();
   }
-}
+};
 </script>
 
 <style>
@@ -136,8 +136,8 @@ export default {
   padding: 40px;
 }
 
-#app .padding10{
-  padding: 10px
+#app .padding10 {
+  padding: 10px;
 }
 
 #app .buscador {

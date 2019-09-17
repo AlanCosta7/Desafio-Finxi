@@ -11,7 +11,7 @@
       />
     </transition>
     <div class="ui stackable five column grid scrollbar">
-      <div class="column" v-for="gif in gifs" :key="gif.id" >
+      <div class="column" v-for="gif in gifs" :key="gif.id">
         <sui-card v-if="gif" @click="showModal(gif)">
           <sui-image class="img" :src="gif.images.fixed_height.url" alt="imagem gif" />
         </sui-card>
@@ -23,7 +23,12 @@
       <sui-modal-header>
         <div class="ui column grid">
           <div class="row" v-if="editedItem.user">
-            <sui-image v-if="editedItem.user" :src="editedItem.user.avatar_url" avatar alt="imagem avatar"/>
+            <sui-image
+              v-if="editedItem.user"
+              :src="editedItem.user.avatar_url"
+              avatar
+              alt="imagem avatar"
+            />
             <a class="displayName" :href="editedItem.user.profile_url" target="_blank">
               <p>{{editedItem.user.display_name}}</p>
             </a>
@@ -92,13 +97,13 @@ export default {
       this.actionModalDetalhesGifs();
     },
     selectGif(item) {
-      var id = item.id
+      var id = item.id;
       Giphy.getId(id).then(res => {
-        this.editedItem = res.data.data
+        this.editedItem = res.data.data;
         this.uploadItem = dayjs(this.editedItem.import_datetime).format(
-         "DD/MM/YYYY"
+          "DD/MM/YYYY"
         );
-      })
+      });
     },
     actionModalDetalhesGifs() {
       this.modalDetalhesGifs = !this.modalDetalhesGifs;

@@ -1,6 +1,6 @@
 {
   "name": "mygiphys",
-  "description": "MVP: Website utilizando o Semantic UI e Vue JS e API pública de desenvolvedores do Giphy", 
+  "description": "MVP: Website utilizando o Semantic UI e Vue JS e API pública de desenvolvedores do Giphy",
   "version": "1.0.0",
   "author": "Alan Costa",
   "license": "MIT",
@@ -25,6 +25,8 @@
     "not ie <= 8"
   ],
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.2.0",
+    "@typescript-eslint/parser": "^2.2.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
