@@ -105,7 +105,7 @@ export default {
     },
     selectGif(item) {
       var id = item.id;
-      Giphy.getId(id).then(res => {
+      Giphy.getById(id).then(res => {
         this.editedItem = res.data.data;
         this.uploadItem = dayjs(this.editedItem.import_datetime).format(
           "DD/MM/YYYY"
